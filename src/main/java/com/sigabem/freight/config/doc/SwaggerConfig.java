@@ -2,6 +2,7 @@ package com.sigabem.freight.config.doc;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
@@ -24,13 +25,10 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfo(
-                "Sigabem",
-                "API for calculate of deadline and price of freight.",
-                "1.0",
-                "",
-                "",
-                "",
-                "");
+        return new ApiInfoBuilder()
+                .title("Sigabem")
+                .description("API for calculate of deadline and price of freight.")
+                .version("1.0")
+                .build();
     }
 }
