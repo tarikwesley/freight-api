@@ -6,6 +6,7 @@ import com.sigabem.freight.repository.FreightRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 @Service
@@ -53,18 +54,18 @@ public class FreightService {
 
         if (zipCodeOfOriginIsEqualsDestiny) {
             BigDecimal valueOfDiscount = valueOfPackage.multiply(FIFTY_PERCENT);
-            freight.setValueOfFreightTotal(valueOfPackage.subtract(valueOfDiscount).setScale(2, BigDecimal.ROUND_HALF_UP));
+            freight.setValueOfFreightTotal(valueOfPackage.subtract(valueOfDiscount).setScale(2, RoundingMode.HALF_UP));
         }
 
         boolean stateOfOriginIsEqualsDestiny = responseZipCodeOrigin.getState().equals(responseZipCodeDestiny.getState());
 
         if (stateOfOriginIsEqualsDestiny && !zipCodeOfOriginIsEqualsDestiny) {
             BigDecimal valueOfDiscount = valueOfPackage.multiply(SEVENTY_FIVE_PERCENT);
-            freight.setValueOfFreightTotal(valueOfPackage.subtract(valueOfDiscount).setScale(2, BigDecimal.ROUND_HALF_UP));
+            freight.setValueOfFreightTotal(valueOfPackage.subtract(valueOfDiscount).setScale(2, RoundingMode.HALF_UP));
         }
 
         if (!zipCodeOfOriginIsEqualsDestiny && !stateOfOriginIsEqualsDestiny)
-            freight.setValueOfFreightTotal(valueOfPackage.setScale(2, BigDecimal.ROUND_HALF_UP));
+            freight.setValueOfFreightTotal(valueOfPackage.setScale(2, RoundingMode.HALF_UP));
 
     }
 
