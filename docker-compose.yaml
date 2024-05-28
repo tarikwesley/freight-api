@@ -1,0 +1,25 @@
+services:
+  springboot:
+    build: .
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/freight
+    container_name: freight-rest-api
+    ports:
+      - 8081:8080
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    networks:
+      - network
+  mongo:
+    image: mongo:latest
+    container_name: freight-mongodb
+    ports:
+      - 27017:27017
+    command: mongod --logpath=/dev/null
+    networks:
+      - network
+networks:
+  network:
+    driver: bridge
